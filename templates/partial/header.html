@@ -1,0 +1,30 @@
+    <header class="header">
+        <div class="inner-header wrap">
+            {% if h1 %}
+            <h1 class="h1">
+                <a class="logo link-item" href="{{ SITEURL }}">
+                    {% if SITELOGO != '' %}
+                    <img src="{{ SITEURL }}/theme/img/{{ SITELOGO }}" alt="{{ SITENAME }}">
+                    {% else %}
+                    <span class="logo-text">{{ SITENAME }}</span>
+                    {% endif %}
+                </a>
+            </h1>
+            {% else %}
+            <a class="logo link-item" href="{{ SITEURL }}">
+                {% if SITELOGO != '' %}
+                <img src="{{ SITEURL }}/theme/img/{{ SITELOGO }}" alt="{{ SITENAME }}">
+                {% else %}
+                <span class="logo-text">{{ SITENAME }}</span>
+                {% endif %}
+            </a>
+            {% endif %}
+        </div>
+        <div class="navbar-wrapper">
+            <ul class="navbar wrap">
+                {% for category in categories %}
+                <li class="navbar-item"><a href="{{ SITEURL }}/category/{{ category[0]|lower }}" class="link-item">{{ category[0] }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </header>

@@ -1,0 +1,14 @@
+                <div class="social">
+                    <div class="social-header">
+                        <h3>FOLLOW {{ AUTHOR }}</h3>
+                    </div>
+                    <div class="social-content">
+                        <ul>
+                            {% for sns in SOCIAL %}
+                            <li><a href="{{ sns[1] }}" target="_blank">
+                                <img src="{{ SITEURL }}/theme/img/icons/{{ sns[0] }}.svg" alt="{{ AUTHOR }}の{{ sns[0] }}">
+                            </a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>

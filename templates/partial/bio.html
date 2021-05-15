@@ -1,0 +1,21 @@
+                <div class="bio" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                    <div class="bio-header">
+                        <div class="bio-img">
+                            <img class="bio-img" src="{{ SITEURL }}/theme/img/{{ BIO_IMG }}" alt="{{ AUTHOR }}の画像">
+                        </div>
+                        <h3 class="bio-name" itemprop="name">{{ AUTHOR }}</h3>
+                    </div>
+                    <div class="bio-content">
+                        <p class="bio-detail">{{ BIO_DETAIL }}</p>
+                    </div>
+                    <div class="bio-footer">
+                        {% if BIO_BUSINESS %}
+                        {% for job in BIO_BUSINESS_DETAIL %}
+                        <a href="{{ CONTACT }}" target="_blank" class="link-item">{{ job }}依頼はこちら</a>
+                        {% endfor %}
+                        {% endif %}
+                        {% if BIO_CONTACT %}
+                        <a href="{{ CONTACT }}" target="_blank" class="link-item">お問い合わせ</a>
+                        {% endif %}
+                    </div>
+                </div>

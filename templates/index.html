@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% with h1 = True %}
+    {% include "partial/header.html" %}
+    {% endwith %}
+{% endblock %}
+
+{% block content %}
+                <div class="card-wrapper">
+                    {% for article in articles[(articles_page.number-1)*articles_page.paginator.per_page:articles_page.number*articles_page.paginator.per_page] %}
+                    {% if loop.index % 5 == 0 %}
+                    <div class="card">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- Card-type -->
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-4998278830587376"
+                            data-ad-slot="7599243096"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                    {% endif %}
+                    <a href="{{ SITEURL }}/{{ article.slug }}" class="card">
+                        <div class="card-header">
+                            {% if article.thumbnail %}
+                            <img src="{{ SITEURL }}/theme/img/{{ article.thumbnail }}" alt="{{ article.thumbnail_alt }}">
+                            {% else %}
+                            <img src="{{ SITEURL }}/theme/img/{{ DEFAULT_THUMBNAIL }}" alt="empty thumbnail">
+                            {% endif %}
+                        </div>
+                        <div class="card-content">
+                            <ul class="post-meta">
+                                {% if article.updated_date %}
+                                <li class="date updated"><time itemprop="updated" datetime="{{ article.updated_date }}">{{ article.updated_date }}</time></li>
+                                {% if article.published_date %}
+                                <li class="date published"><time itemprop="published" datetime="{{ article.published_date }}">{{ article.published_date }}</time></li>
+                                {% endif %}
+                                {% else %}
+                                <li class="date published"><time itemprop="published" datetime="{{ article.date|strftime(DATE_FORMATS['datetime']) }}">{{ article.date|strftime(DATE_FORMATS['datetime']) }}</time></li>
+                                {% endif %}
+                            </ul>
+                            <h2>{{ article.title }}</h2>
+                        </div>
+                    </a>
+                    {% endfor %}
+                    <div class="paginator-wrapper">
+                        {% if articles_previous_page.url %}
+                        <a href="{{ articles_previous_page.url }}" class="paginator previous">Previous</a>
+                        {% endif %}
+                        {% if articles_next_page.url %}
+                        <a href="{{ articles_next_page.url }}" class="paginator next">Next</a>
+                        {% endif %}
+                    </div>
+                </div>
+                    
+{% endblock %}

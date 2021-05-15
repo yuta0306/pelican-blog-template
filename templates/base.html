@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/css/main.css">
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/css/highlight.css">
+
+    {% block title %}
+    <title>{{ SITENAME }}</title>
+    {% endblock %}
+    <!-- OGP -->
+    {% block ogp %}
+    <meta property="og:title" content="{{ SITENAME }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ SITEURL }}" />
+    <meta property="og:image" content="{{ SITEURL }}/theme/img/{{ DEFAULT_THUMBNAIL }}" />
+    <meta property="og:site_name" content="{{ SITENAME }}" />
+    <meta property="og:description" content="{{ SITEDESCRIPTION }}" />
+
+    {% if OGP_FACEBOOK %}
+    <!-- Facebook -->
+    <meta property="fb:app_id" content="{{ FACEBOOK_ID }}" />
+    {% endif %}
+    {% if OGP_TWITTER %}
+    <!-- ※Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    {% endif %}
+    {% endblock %}
+    <!-- /OGP -->
+    {% if article in hidden_pages %}
+    <meta name="robots" content="noindex, nofollow" />
+    {% else %}
+    <meta name="robots" content="index, follow" />
+    {% endif %}
+    <meta name="generator" content="Pelican" />
+    {% block description %}
+    <meta name="description" content="{{ SITEDESCRIPTION }}" />
+    {% endblock %}
+    {% block author %}
+    <meta name="author" content="{{ AUTHOR }}" />
+    {% endblock %}
+    {% block head %}
+    {% endblock %}
+    <!-- Favicon -->
+    <link rel="icon" href="{{ SITEURL }}/theme/img/favicons/favicon.ico">
+    <link rel="apple-touch-icon" type="image/png" href="{{ SITEURL }}/theme/img/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="{{ SITEURL }}/theme/img/favicons/icon-192x192.png">
+    <!-- /Favicon -->
+
+    <!-- Google Adsense -->
+    {% if GOOGLE_ADSENSE %}
+    <!-- Google Adsense Code Here! -->
+    {{ GOOGLE_ADSENSE }}
+    {% endif %}
+    <!-- /Google Adsense -->
+    <script async>
+        // Lazy loading
+        let images = document.getElementsByTagName('img');
+        for (let image of images) {
+            image.setAttribute('loading', 'lazy');
+        }
+    </script>
+</head>
+<body ontouchstart="">
+    {% block header %}
+    {% include "partial/header.html" %}
+    {% endblock %}
+    
+    <div class="content">
+        <div class="wrap">
+            <main class="main" role="main" itemprop="mainContentOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">
+                {% block content %}{% endblock %}
+                
+            </main>
+            <aside class="aside">
+                {% include "partial/bio.html" %}
+
+                <div>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- sidebar-top -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-4998278830587376"
+                        data-ad-slot="8883516554"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                {% if SEARCHENGINE %}
+                <div>
+                    <h3>サイト内検索</h3>
+                    {{ SEARCHENGINE }}
+                </div>
+                {% endif %}
+
+                {% if AFFILIATES %}
+                <div>
+                    <h3>{{ AUTHOR }}のイチオシ</h3>
+                    <div class="affiliates">
+                        {% for affiliate in AFFILIATES %}
+                        {{ affiliate }}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% include "partial/followme.html" %}
+
+                <div>
+                    <h3>カテゴリー一覧</h3>
+                    <ul class="categories">
+                       {% for category in categories %}
+                       <li><a href="{{ SITEURL }}/category/{{ category[0]|lower }}">{{ category[0] }}</a></li> 
+                       {% endfor %}
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>タグ一覧</h3>
+                    <ul class="tags">
+                        {% for tag in tags %}
+                        <li><a href="{{ SITEURL }}/tag/{{ tag[0]|lower }}">{{ tag[0] }}</a></li> 
+                        {% endfor %}
+                     </ul>
+                </div>
+
+                <div>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- sidebar-top -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-4998278830587376"
+                        data-ad-slot="8883516554"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
+                <div>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- sidebar-bottom -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-4998278830587376"
+                        data-ad-slot="6053145564"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+
+                {% if TWITTER %}
+                {% include "partial/twitter.html" %}
+                {% endif %}
+
+            </aside>
+        </div>
+    </div>
+
+    {% include "partial/analytics.html" %}
+
+    {% include "partial/footer.html" %}
+
+</body>
+</html>

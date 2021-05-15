@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+<!-- OGP -->
+{% block ogp %}
+    <meta property="og:title" content="{{ SITENAME }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ SITEURL }}/tags" />
+    <meta property="og:image" content="{{ SITEURL }}/theme/img/{{ DEFAULT_THUMBNAIL }}" />
+    <meta property="og:site_name" content="{{ SITENAME }}" />
+    <meta property="og:description" content="{{ SITEDESCRIPTION }}" />
+
+    {% if OGP_FACEBOOK %}
+    <!-- Facebook -->
+    <meta property="fb:app_id" content="{{ FACEBOOK_ID }}" />
+    {% endif %}
+    {% if OGP_TWITTER %}
+    <!-- ※Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    {% endif %}
+{% endblock %}
+<!-- /OGP -->

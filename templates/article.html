@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>{{ article.title }}</title>
+{% endblock %}
+<!-- OGP -->
+{% block ogp %}
+    <meta property="og:title" content="{{ article.title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}" />
+    {% if article.thumbnail %}
+    <meta property="og:image" content="{{ SITEURL }}/theme/img/{{ article.thumbnail }}" />
+    {% else %}
+    <meta property="og:image" content="{{ SITEURL }}/theme/img/{{ DEFAULT_THUMBNAIL }}" />
+    {% endif %}
+    <meta property="og:site_name" content="{{ SITENAME }}" />
+    {% if article.description %}
+    <meta property="og:description" content="{{ article.description }}" />
+    {% else %}
+    <meta property="og:description" content="{{ SITEDESCRIPTION }}" />
+    {% endif %}
+
+    {% if OGP_FACEBOOK %}
+    <!-- Facebook -->
+    <meta property="fb:app_id" content="{{ FACEBOOK_ID }}" />
+    {% endif %}
+    {% if OGP_TWITTER %}
+    <!-- ※Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    {% endif %}
+{% endblock %}
+<!-- /OGP -->
+{% if article.description %}
+{% block description %}
+    <meta name="description" content="{{ article.description }}" />
+{% endblock %}
+{% endif %}
+{% block author %}
+{% if article.autor != AUTHOR %}
+    <meta name="author" content="{{ article.author }}" />
+{% endif %}
+{% endblock %}
+
+{% block content %}
+                <article class="post" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
+                    <div class="inner-post">
+                        <header class="post-header">
+                            <nav class="breadcrumb">
+                                <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+                                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                        <a href="{{ SITEURL }}" itemprop="item" class="link-item">
+                                            <span class="link-to-home" itemprop="name">ホーム</span>
+                                            <meta itemprop="position" content="1">
+                                        </a>
+                                    </li>
+                                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                                        <a href="{{ SITEURL }}/category/{{ article.category|lower }}" itemprop="item" class="link-item">
+                                            <span class="link-to-category" itemprop="name">{{ article.category }}</span>
+                                            <meta itemprop="position" content="2">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <h1 class="post-title">{{ article.title }}</h1>
+                            <ul class="post-meta">
+                                {% if article.updated_date %}
+                                <li class="date updated"><time itemprop="updated" datetime="{{ article.updated_date }}">{{ article.updated_date }}</time></li>
+                                {% if article.published_date %}
+                                <li class="date published"><time itemprop="published" datetime="{{ article.published_date }}">{{ article.published_date }}</time></li>
+                                {% endif %}
+                                {% else %}
+                                <li class="date published"><time itemprop="published" datetime="{{ article.date|strftime(DATE_FORMATS['datetime']) }}">{{ article.date|strftime(DATE_FORMATS['datetime']) }}</time></li>
+                                {% endif %}
+                            </ul>
+                        </header>
+                        <div class="post-content" itemprop="text">
+                            <div class="post-thumbnail" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+                                {% if article.thumbnail %}
+                                <img src="{{ SITEURL }}/theme/img/{{ article.thumbnail }}" alt="{{ article.thumbnail_alt }}">
+                                {% else %}
+                                <img src="{{ SITEURL }}/theme/img/{{ DEFAULT_THUMBNAIL }}" alt="empty thumbnail">
+                                {% endif %}
+                            </div>
+                            <nav class="toc">
+                                <h2>目次</h2>
+                                <ol>
+                                    {% for i in article.toc.split(',') %}
+                                    <li>
+                                        <a href="#section{{ loop.index }}" class="link-item">{{ i }}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ol>
+                            </nav>
+
+                            {{ article.content }}
+
+                            <div class="post-tag">
+                                <h3>タグ</h3>
+                                <ul class="tag-list">
+                                    {% for tag in article.tags %}
+                                    <li><a href="{{ SITEURL }}/tag/{{ tag|lower }}" class="link-item">{{ tag }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            {% include "partial/post_footer.html" %}
+                            
+                        </div>
+                    </div>
+                </article>
+{% endblock %}
